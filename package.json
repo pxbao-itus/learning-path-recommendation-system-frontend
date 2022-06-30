@@ -1,0 +1,23 @@
+{
+  "name": "learning-path-recommendation-system-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "url": "https://github.com/pxbao-itus/learning-path-recommendation-system-frontend.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect index.js"
+  },
+  "author": "pxbao",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  }
+}

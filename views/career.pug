@@ -1,0 +1,37 @@
+extends ./layouts/common.pug 
+
+block content 
+  .row.mb-3(style="margin-top: -20px;")
+    .btn.btn-outline-success.disabled Current
+    .btn.btn-success.ml-2#current-career #{user.career.title || "No Career Objective"}
+  .row
+    table.table.table-striped
+      thead.bg-success
+        tr
+          th(scope='col') ID
+          th(scope='col') Title
+          th(scope='col') Add objective
+          th(scope='col') Detail
+      tbody
+        if careers && careers.length > 0
+          each career in careers 
+            tr
+              th(scope='row')= career.id
+              td(id = career.id + "-name")= career.creTitle
+              td
+                .btn.btn-success.career-update(id= career.id + "-update") Update Objective
+              td 
+                .btn.btn-success.career-detail(id= career.id + "-detail") Detail
+  .row.mt-4#detail-container
+    .row.w-100
+      strong.mr-4#current Career: 
+      .d-flex.justify-content-between
+        .btn.btn-success.mr-2 Knowledge 
+        .btn.btn-primary.mr-2 Programing Language 
+        .btn.btn-warning.mr-2.text-light Tool
+        .btn.btn-danger.mr-2 Platform 
+        .btn.btn-secondary.mr-2 Framework
+    .row.float-left.mt-4#list-lo
+      
+
+

@@ -1,0 +1,17 @@
+# Home page
+- enter email to identify user
+
+
+# Add learning object & career page
+- Add learning object with each label
+- Add career from list career
+
+# Information learning object & career
+- View list learning objects with each label
+- View list learning objects that career need
+- View list courses provide particular learning object
+
+# Result of recommendation
+- View image visualize learning path
+- View list courses
+- View detail courses

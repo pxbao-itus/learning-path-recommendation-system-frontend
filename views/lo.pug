@@ -1,0 +1,48 @@
+extends ./layouts/common.pug 
+
+block content 
+  .row.d-flex.justify-content-center
+    .col.col-sm-5
+      .row 
+        .input-group.mb-3
+          input.form-control#value(type='text' placeholder="Learning Object"   disabled)
+          input.form-control#level(type='number'  placeholder="Level" min="1" max="5" )
+          .input-group-append
+            .btn.btn.success.input-group-text#update Update
+      .row
+        table.table.table-striped
+          thead.bg-success.text-light
+            tr
+              th(scope='col') ID
+              th(scope='col') Title
+              th(scope='col') Level
+              th(scope='col') Delete
+          tbody#has-body
+            if loHas 
+              each e in loHas
+                tr.lo(id=e.id+"-has")
+                  th(scope='row')= e.id
+                  td(id=e.id+"-value")= e.value
+                  td(id=e.id+"-level")= e.level
+                  td 
+                    .btn.btn-danger.delete(id=e.id+"-delete") Delete
+    .col.col-sm-6.ml-2
+      .row 
+        .input-group.mb-3
+          input.form-control#search-lo(type='text' placeholder="Learning Object" )
+          .input-group-append
+            span.btn.btn.success.input-group-text#search-lo-btn Search
+      .row
+        table.table.table-striped
+          thead.bg-success.text-light
+            tr
+              th(scope='col') ID
+              th(scope='col') Title
+              th(scope='col') Type
+          tbody
+            if los && los.length > 0
+              each lo in los 
+                tr.lo(id=lo.id+"-avail")
+                  th(scope='row')= lo.id
+                  td(id = lo.id + "-value")= lo.value
+                  td= lo.type

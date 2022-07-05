@@ -1,0 +1,113 @@
+extends ./layouts/common.pug 
+
+block content 
+  .row.mb-4
+    .row.col.col-sm-7.p-1.rounded.m-auto(style="background-color: #ececec!important;")
+      .col.col-sm-2.m-auto
+        .form-check
+          input#cost.form-check-input(type='radio' name='option' value='option1' checked)
+          label.form-check-label(for='cost') Cost
+        .form-check
+          input#time.form-check-input(type='radio' name='option' value='option2')
+          label.form-check-label(for='time') Time 
+      .col.col-sm-5.m-auto
+        .form-group
+          label.text-success.font-weight-bold(for='value') Value cost or time
+          input#value.form-control(type='number'  placeholder='Enter cost or time expected')
+      .col.col-sm-4.m-auto 
+        .btn.btn-success.w-100.mb-1#submit Submit
+        .btn.btn-success.w-100#execute Find Learning Path
+    
+  .row 
+    .col.col-lg-3
+      table.table.table-striped
+        thead.bg-success.text-light
+          tr
+            th(scope='col') Courses
+            th(scope='col') Detail
+        tbody#lp-body
+          if loHas 
+            each e in loHas
+              tr.lo(id=e.id+"-lp")
+                th(scope='row')= e.id
+                td 
+                  .btn.btn-danger.delete(id=e.id+"-delete") Delete
+    .col.col-lg-9
+      .row.card.mb-4#info-result
+          .card-body
+            .row
+              .col-sm-3
+                p.mb-0 Amount Course
+              .col-sm-9
+                p.text-muted.mb-0#amount-courses 0
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Amount redundant LO
+              .col-sm-9
+                p.text-muted.mb-0#amount-redundant 0
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Amount duplicate LO
+              .col-sm-9
+                p.text-muted.mb-0#amount-duplicate 0
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Cost
+              .col-sm-9
+                p.text-muted.mb-0#amount-cost 0
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Time
+              .col-sm-9
+                p.text-muted.mb-0#amount-time 0
+            hr
+            .row 
+              .col-sm-3 
+                p.mb-0 Learning Path
+              .col-sm-9
+                img#lp-img(src="", alt="Learning Path")
+            .row 
+            .col-sm-3 
+              p.mb-0 Courses 
+            .col-sm-9.float-left#course-container
+          .card-body#detail-course
+            .row
+              .col-sm-3
+                p.mb-0 Course Name
+              .col-sm-9
+                p.text-muted.mb-0.text-truncate.w-100#name 0
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Link
+              .col-sm-9
+                a.text-muted.mb-0.text-truncate.w-100#link 0
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Cost
+              .col-sm-9
+                p.text-muted.mb-0#cost-c 0
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Time
+              .col-sm-9
+                p.text-muted.mb-0#time-c 0
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Rating
+              .col-sm-9
+                p.text-muted.mb-0#rating 0
+            hr
+            .row
+              .col-sm-3
+                p.mb-0 Enroll
+              .col-sm-9
+                p.text-muted.mb-0#enroll 0
+

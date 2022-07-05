@@ -1,0 +1,16 @@
+extends ../layouts/common-except.pug
+
+
+
+block content 
+  .container 
+    form#form-identification.rounded(action="/identification", method="POST")
+      h2.text-success.text.font-weight-bold Qualify
+      if msg 
+        .alert.alert-warning #{msg}
+      .form-group
+        label(for='email') Email address
+        input#email.form-control(type='email' aria-describedby='emailHelp' name="email" placeholder='Enter email')
+        small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.
+      button.btn.btn-success(type='submit') Submit
+      button.btn.btn-success.ml-5#register Register

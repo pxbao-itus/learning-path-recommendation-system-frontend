@@ -1,0 +1,47 @@
+extends ./layouts/common.pug 
+
+block content 
+  section(style='background-color: #eee;')
+    .container.py-5
+      .row
+        .col-lg-4
+          .card.mb-4
+            .card-body.text-center
+              img.rounded-circle.img-fluid(src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp' alt='avatar' style='width: 150px;')
+              h5.my-3 #{user.name}
+              .d-flex.justify-content-center.mb-2
+                a.btn.btn-danger.text-light(href="/identification") Logout
+              if !user.career.title 
+                a.btn.btn-success.text-light(href="/career") Add Objective
+        .col-lg-8
+          .card.mb-4
+            .card-body
+              .row
+                .col-sm-3
+                  p.mb-0 Full Name
+                .col-sm-9
+                  p.text-muted.mb-0 #{user.name}
+              hr
+              .row
+                .col-sm-3
+                  p.mb-0 Email
+                .col-sm-9
+                  p.text-muted.mb-0 #{user.email}
+              hr
+              .row
+                .col-sm-3
+                  p.mb-0 Cost Expected
+                .col-sm-9
+                  p.text-muted.mb-0 #{user.cost || 0}
+              hr
+              .row
+                .col-sm-3
+                  p.mb-0 Time Expected
+                .col-sm-9
+                  p.text-muted.mb-0 #{user.time || 0} 
+              hr
+              .row
+                .col-sm-3
+                  p.mb-0 Career Objective
+                .col-sm-9
+                  p.text-muted.mb-0 #{user.career.title || "No Objective"}

@@ -1,1 +1,0 @@
-Server is listening on port \\.\pipe\3376f54b-3140-41fd-bc2b-9e2d8778259e

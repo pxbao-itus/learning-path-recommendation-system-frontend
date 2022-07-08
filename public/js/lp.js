@@ -14,26 +14,35 @@ $(document).ready(function () {
 });
 async function getLP() {
   console.log("start");
-  LP = await $.get(`/lp/execute`);
+  alert("Executing to find learning path. Please wait a second.")
+  $("#info-result").hide();
   $("#lp-body").empty();
+  LP = await $.get(`/lp/execute`);
   let counter = 1;
-  LP.forEach((element) => {
-    $("#lp-body").append(`
-      <tr id="${counter}" class="lp">
-        <th>${counter++}</th>
-        <th>
-          <button id= "${counter}-detail"class="btn btn-success">Detail</button>
-        </th>
-      </tr>
-    `);
-  });
-  await detailLP(0);
-  $(".lp").each(function () {
-    $(this).click(async function () {
-      const id = parseInt($(this).attr("id"));
-      await detailLP(id);
+  if(LP.length > 0) {
+    LP.forEach((element) => {
+      $("#lp-body").append(`
+        <tr id="${counter}" class="lp">
+          <th>${counter++}</th>
+          <th>
+            <button id= "${counter}-detail"class="btn btn-success">Detail</button>
+          </th>
+        </tr>
+      `);
     });
-  });
+    $("#1").addClass("bg-warning");
+    await detailLP(0);
+    $(".lp").each(function () {
+      $(this).click(async function () {
+        const id = parseInt($(this).attr("id"));
+        await detailLP(id - 1);
+        $(".lp").removeClass("bg-warning");
+        $(this).addClass("bg-warning");
+      });
+    });
+  } else {
+    alert("Error! Please try again later.")
+  }
 }
 
 async function detailLP(index) {
@@ -41,6 +50,7 @@ async function detailLP(index) {
   LP[index].path.forEach((element) => {
     courses = [...courses, ...element];
   });
+  console.log(courses)
   const result = await $.post(`/lp/info`, { courses });
   $("#amount-courses").text(result.course);
   $("#amount-redundant").text(result.lor);
@@ -56,15 +66,17 @@ async function detailLP(index) {
   });
 
   loadDetailCourse();
+  $("#detail-course").hide();
   $("#info-result").show();
 }
 
 function loadDetailCourse() {
   $(".course").each(function () {
     $(this).click(async function () {
-      console.log(true);
+      $(".course").removeClass("btn-warning");
+      $(this).addClass("btn-warning");
       const result = await $.get(`/lp/course?id=${$(this).text()}`);
-      console.log(result);
+      const lo = await $.get(`/lp/course/lo?id=${$(this).text()}`);
       $("#name").text(result.name);
       $("#link").text(result.link);
       $("#link").attr("href", result.link);
@@ -73,6 +85,18 @@ function loadDetailCourse() {
       $("#rating").text(result.rating || 0);
       $("#enroll").text(result.enroll || 0);
       $("#detail-course").show();
+      $("#provided-container").empty();
+      $("#require-container").empty();
+      lo.provided.forEach((element) => {
+        $("#provided-container").append(`
+          <div class="btn btn-success text-light course mb-2" >${element.name}, Level: ${element.level}</div>
+        `);
+      });
+      lo.required.forEach((element) => {
+        $("#require-container").append(`
+          <div class="btn btn-success text-light course mb-2" >${element.name}, Level: ${element.level}</div>
+        `);
+      });
     });
   });
 }

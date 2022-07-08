@@ -28,8 +28,10 @@ function onDeleteClick() {
       const id = $(this).attr("id").slice(0, $(this).attr("id").indexOf("-"));
       const result = await $.get(`/lo/delete?lo=${id}`);
       await reloadTable();
-      onRowClick()
-      onDeleteClick()
+      
+      onRowClick();
+      onDeleteClick();
+      
     });
   });
 }
@@ -37,6 +39,8 @@ function onDeleteClick() {
 function onRowClick() {
   $(".lo").each(function () {
     $(this).click(function () {
+      $(".lo").removeClass("bg-warning");
+      $(this).addClass("bg-warning");
       const id = $(this).attr("id").slice(0, $(this).attr("id").indexOf("-"));
       $("#value").val(id + ":" + $(this).children(`#${id}-value`).text());
 
@@ -54,7 +58,7 @@ async function reloadTable() {
   $("#has-body").empty();
   loHas.forEach((element) => {
     $("#has-body").append(`
-        <tr class="lo" id="${element.id}-has">
+        <tr class="lo font-weight-light" id="${element.id}-has">
           <th scope="row">${element.id}</th>
           <th id="${element.id}-value">${element.value}</th>
           <th id="${element.id}-level">${element.level}</th>

@@ -23,7 +23,7 @@ block content
       table.table.table-striped
         thead.bg-success.text-light
           tr
-            th(scope='col') Courses
+            th(scope='col') Learning Path
             th(scope='col') Detail
         tbody#lp-body
           if loHas 
@@ -32,7 +32,7 @@ block content
                 th(scope='row')= e.id
                 td 
                   .btn.btn-danger.delete(id=e.id+"-delete") Delete
-    .col.col-lg-9
+    .col.col-lg-9#right-side
       .row.card.mb-4#info-result
           .card-body
             .row
@@ -70,10 +70,11 @@ block content
                 p.mb-0 Learning Path
               .col-sm-9
                 img#lp-img(src="", alt="Learning Path")
+            hr
             .row 
-            .col-sm-3 
-              p.mb-0 Courses 
-            .col-sm-9.float-left#course-container
+              .col-sm-3 
+                p.mb-0 Courses 
+              .col-sm-9.float-left#course-container
           .card-body#detail-course
             .row
               .col-sm-3
@@ -110,4 +111,14 @@ block content
                 p.mb-0 Enroll
               .col-sm-9
                 p.text-muted.mb-0#enroll 0
+            hr
+            .row 
+              .col-sm-3 
+                p.mb-0 LO Provided
+              .col-sm-9.float-left#provided-container
+            hr
+            .row 
+              .col-sm-3 
+                p.mb-0 LO Required 
+              .col-sm-9.float-left#require-container
 

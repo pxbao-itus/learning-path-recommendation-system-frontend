@@ -13,4 +13,7 @@ router.post("/info", controller.getLPInfo)
 
 router.get("/course", controller.getCourseInfo)
 
+router.get("/course/lo", controller.getLOCourse)
+
+
 module.exports = router;

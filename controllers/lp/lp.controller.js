@@ -48,7 +48,7 @@ module.exports.getLPInfo = async (req, res, next) => {
   try {
     const body = {
       user: req.cookies.user.id,
-      courses: req.body.courses.map(item => parseInt(item)),
+      courses: req.body.courses.map((item) => parseInt(item)),
     };
     const result = (await axiosPython.post(`${BASE_URL}/lp`, body))?.data;
     return res.send(result);
@@ -65,16 +65,36 @@ module.exports.getLPInfo = async (req, res, next) => {
 
 module.exports.getCourseInfo = async (req, res, next) => {
   try {
-    const result = (await axiosPython.get(`/course?id=${req.query.id}`))?.data
-    return res.send(result)
+    const result = (await axiosPython.get(`/course?id=${req.query.id}`))?.data;
+    return res.send(result);
   } catch (error) {
     return res.send({
       course: "",
-      cost: 0, 
+      cost: 0,
       time: 0,
       rating: 0,
       enroll: 0,
-      link: "#"
-    })
+      link: "#",
+    });
   }
-}
+};
+
+module.exports.getLOCourse = async (req, res, next) => {
+  try {
+    const provided = (
+      await axiosPython.get(`/course/provided/lo?id=${req.query.id}`)
+    )?.data;
+    const required = (
+      await axiosPython.get(`/course/required/lo?id=${req.query.id}`)
+    )?.data;
+    return res.send({
+      provided,
+      required,
+    });
+  } catch (error) {
+    return res.send({
+      provided: [],
+      required: [],
+    });
+  }
+};

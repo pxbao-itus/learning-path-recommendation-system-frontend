@@ -44,3 +44,7 @@ background: var(--gray);
   margin-left: 0;
 }
 
+#right-side {
+  height: 100vh;
+  overflow: scroll;
+}

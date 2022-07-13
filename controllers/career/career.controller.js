@@ -37,6 +37,7 @@ module.exports.updateCareer = async (req, res, next) => {
     }
     const result = (await axiosPython.post(`/user/career/update`, body))
       ?.data;
+    res.cookie("career_id", req.query.career)
     return res.send({ msg: "success" });
   } catch (error) {
     return res.send({ msg: "fail" });

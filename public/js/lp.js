@@ -10,6 +10,7 @@ $(document).ready(function () {
   $("#detail-course").hide();
   $("#execute").click(async function () {
     await getLP();
+    
   });
 });
 async function getLP() {
@@ -17,7 +18,12 @@ async function getLP() {
   alert("Executing to find learning path. Please wait a second.")
   $("#info-result").hide();
   $("#lp-body").empty();
-  LP = await $.get(`/lp/execute`);
+  try {
+    LP = await $.get(`/lp/execute`);
+    
+  } catch (error) {
+    console.log(error)
+  }
   let counter = 1;
   if(LP.length > 0) {
     LP.forEach((element) => {
@@ -30,8 +36,8 @@ async function getLP() {
         </tr>
       `);
     });
-    $("#1").addClass("bg-warning");
-    await detailLP(0);
+
+    $(`#1`).addClass("bg-warning");
     $(".lp").each(function () {
       $(this).click(async function () {
         const id = parseInt($(this).attr("id"));
@@ -40,8 +46,9 @@ async function getLP() {
         $(this).addClass("bg-warning");
       });
     });
+    await detailLP(0);
   } else {
-    alert("Error! Please try again later.")
+    alert("No learning path available")
   }
 }
 
@@ -50,14 +57,15 @@ async function detailLP(index) {
   LP[index].path.forEach((element) => {
     courses = [...courses, ...element];
   });
-  console.log(courses)
+  // console.log(courses)
+  const randImage = Math.random();
   const result = await $.post(`/lp/info`, { courses });
   $("#amount-courses").text(result.course);
   $("#amount-redundant").text(result.lor);
   $("#amount-duplicate").text(result.lod);
   $("#amount-cost").text(result.cost);
   $("#amount-time").text(result.time);
-  $("#lp-img").attr("src", `${base_url}${LP[index].visualization}`);
+  $("#lp-img").attr("src", `${base_url}${LP[index].visualization}?buster=${randImage}`);
   $("#course-container").empty();
   courses.forEach((element) => {
     $("#course-container").append(`
